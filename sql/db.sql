@@ -12,3 +12,21 @@ CREATE TABLE users(
 	PRIMARY KEY(id),
 	FOREIGN KEY(user_group_id) REFERENCES user_group(id));
 	
+CREATE TABLE exercise(
+	id INT AUTO_INCREMENT,
+	title VARCHAR(255),
+	description TEXT,
+	PRIMARY KEY(id));
+	
+CREATE TABLE solution(
+	id INT AUTO_INCREMENT,
+	created DATETIME,
+	updated DATETIME,
+	description TEXT,
+	exercise_id INT,
+	users_id BIGINT,
+	PRIMARY KEY(id),
+	FOREIGN KEY(exercise_id) REFERENCES exercise(id),
+	FOREIGN KEY(users_id) REFERENCES users(id));
+	
+	
