@@ -118,4 +118,28 @@ public class Exercise {
 		
 	}
 	
+	public static void loadAllByUserId(java.sql.Connection conn, long id) throws SQLException {
+		ArrayList<String> solutions = new ArrayList<String>();
+		String sql = "SELECT exercise.id, solution.description FROM exercise JOIN solution ON exercise.id = solution.exercise_id "
+				+ "WHERE solution.users_id=?;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			int exerciseId = rs.getInt("exercise.id");
+			String exercise = Integer.toString(exerciseId);
+			String solutionDesc = rs.getString("solution.description");
+			solutions.add("zadanie " + exercise + ". " + solutionDesc);
+		}
+		ps.close();
+		rs.close();
+
+		String[] sArray = new String[solutions.size()];
+		sArray = solutions.toArray(sArray);
+		for (int i = 0; i < sArray.length; i++) {
+			System.out.println(sArray[i]);
+		}
+		
+	}
+	
 }

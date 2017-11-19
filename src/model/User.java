@@ -154,6 +154,27 @@ public class User {
 			ps.close();
 			this.id = 0;
 		}
+	}
+	
+	public static void loadAllByGroupId(Connection conn, int id) throws SQLException {
+		ArrayList<String> members = new ArrayList<>();
+		members.add("Członkowie grupy nr " + id);
+		String sql = "SELECT username FROM users WHERE user_group_id = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			String name = rs.getString("username");
+			members.add(name);
+		}
+		ps.close();
+		rs.close();
+		
+		String[] mArray = new String[members.size()];
+		mArray = members.toArray(mArray);
+		for (int i = 0; i < mArray.length; i++) {
+			System.out.println(mArray[i]);
+		}
 		
 	}
 	

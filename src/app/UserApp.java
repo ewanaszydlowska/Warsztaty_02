@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import model.Solution;
 import model.User;
 
 public class UserApp {
@@ -21,7 +22,7 @@ public class UserApp {
 //			u.saveToDB(conn);
 			
 //-------------------sprawdzenie metody loadUserById------------------------
-			User user2 = User.loadUserById(conn, 12);
+//			User user2 = User.loadUserById(conn, 12);
 //			user2.setEmail("aaa@aaa.pl");
 //			user2.saveToDB(conn);
 			
@@ -33,8 +34,12 @@ public class UserApp {
 //			}
 					
 //-------------------sprawdzenie metody deleteUser--------------------------
-			user2.deleteUser(conn);
-			System.out.println(user2.getId());
+//			user2.deleteUser(conn);
+//			System.out.println(user2.getId());
+			
+//			Exercise.loadAllByUserId(conn, 15l);
+//			Solution.loadAllByExerciseId(conn, 2);
+			User.loadAllByGroupId(conn, 1);
 			
 			conn.close();
 			

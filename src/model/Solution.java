@@ -164,7 +164,28 @@ public class Solution {
 			ps.close();
 			this.id = 0;
 		}
+	}
+	
+	public static void loadAllByExerciseId (Connection conn, int id) throws SQLException {
+		ArrayList<String> solutions = new ArrayList<String>();
+		String beginList = "Rozwiazania zadania o id " + id + ":";
+		solutions.add(beginList);
+		String sql = "SELECT description FROM solution WHERE exercise_id=? ORDER BY updated DESC;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			String desc = rs.getString("description");
+			solutions.add(" * " + desc);
+		}
+		ps.close();
+		rs.close();
 		
+		String[] sArray = new String[solutions.size()];
+		sArray = solutions.toArray(sArray);
+		for (int i = 0; i < sArray.length; i++) {
+			System.out.println(sArray[i]);
+		}
 	}
 	
 	
