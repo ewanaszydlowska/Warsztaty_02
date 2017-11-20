@@ -8,7 +8,7 @@ import model.User;
 
 public class TestClass {
 
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/warsztat2?useSSL=false", "root",
@@ -31,7 +31,7 @@ public class TestClass {
 			 User newUser = users[i];
 			 System.out.println(newUser.getId() + newUser.getUsername() +
 			 newUser.getEmail() + newUser.getPassword() + newUser.getUserGroupId());
-			// }
+			 }
 
 			// -------------------sprawdzenie metody deleteUser--------------------------
 			// user2.deleteUser(conn);
