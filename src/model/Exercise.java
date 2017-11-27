@@ -118,7 +118,7 @@ public class Exercise {
 		
 	}
 	
-	public static void loadAllByUserId(java.sql.Connection conn, long id) throws SQLException {
+	public static void loadAllByUserId(Connection conn, long id) throws SQLException {
 		ArrayList<String> solutions = new ArrayList<String>();
 		String sql = "SELECT exercise.id, solution.description FROM exercise JOIN solution ON exercise.id = solution.exercise_id "
 				+ "WHERE solution.users_id=?;";

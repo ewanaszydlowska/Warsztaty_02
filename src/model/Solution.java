@@ -5,26 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Solution {
 	
 	private int id;
-	private String created;
-	private String updated;
+	private Date created;
+	private Date updated;
 	private String description;
 	private int exerciseId;
 	private long usersId;
 	
 	public Solution() {
 		this.id = 0;
-		this.created = "";
-		this.updated = "";
+		this.created = null;
+		this.updated = null;
 		this.description = "";
 		this.exerciseId = 0;
 		this.usersId = 0l;
 	}
 	
-	public Solution(String created, String updated, String description) {
+	public Solution(Date created, Date updated, String description) {
 		this.id = 0;
 		this.created = created;
 		this.updated = updated;
@@ -33,19 +34,19 @@ public class Solution {
 		this.usersId = 0l;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 
@@ -120,8 +121,8 @@ public class Solution {
 		if (rs.next()) {
 			Solution loadedSolution = new Solution();
 			loadedSolution.id = rs.getInt("id");
-			loadedSolution.created = rs.getString("created");
-			loadedSolution.updated = rs.getString("updated");
+			loadedSolution.created = rs.getDate("created");
+			loadedSolution.updated = rs.getDate("updated");
 			loadedSolution.description = rs.getString("description");
 			loadedSolution.exerciseId = rs.getInt("exercise_id");
 			loadedSolution.usersId = rs.getLong("users_id");
@@ -141,8 +142,8 @@ public class Solution {
 		while(rs.next()) {
 			Solution loadedSolution = new Solution();
 			loadedSolution.id = rs.getInt("id");
-			loadedSolution.created = rs.getString("created");
-			loadedSolution.updated = rs.getString("updated");
+			loadedSolution.created = rs.getDate("created");
+			loadedSolution.updated = rs.getDate("updated");
 			loadedSolution.description = rs.getString("description");
 			loadedSolution.exerciseId = rs.getInt("exercise_id");
 			loadedSolution.usersId = rs.getLong("users_id");
