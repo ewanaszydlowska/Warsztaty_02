@@ -30,7 +30,9 @@ public class SolutionApp {
 				if (answer.equals("add")) {
 
 					// lista zadan ktorych uzytkownik jeszcze nie wykonal
-
+					
+					
+					//edycja
 					System.out.println("Podaj id zadania, do którego chcesz dodać rozwiązanie");
 					int exerciseId = sc.nextInt();
 					System.out.println("Podaj rozwiązanie zadania");
