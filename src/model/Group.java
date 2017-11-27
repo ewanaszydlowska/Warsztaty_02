@@ -47,9 +47,10 @@ public class Group {
 			ps.close();
 			rs.close();
 		} else {
-			String sql = "UPDATE user_group SET name=?;";
+			String sql = "UPDATE user_group SET name=? WHERE id=?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, this.name);
+			ps.setInt(2, this.id);
 			ps.executeUpdate();
 			ps.close();
 		}
