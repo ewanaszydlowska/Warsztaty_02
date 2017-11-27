@@ -50,14 +50,17 @@ public class AssignExerciseApp {
 
 					int exerciseId = sc.nextInt();
 
-					Date date = new Date();
-					Solution solution = new Solution(date, null, null);
-					solution.setUsersId(userId);
-					solution.setExerciseId(exerciseId);
-					solution.saveToDB(conn);
-					System.out.println("Dodano rozwiązanie do bazy danych");
-
-					continue;
+					try {
+						Date date = new Date();
+						Solution solution = new Solution(date, null, null);
+						solution.setUsersId(userId);
+						solution.setExerciseId(exerciseId);
+						solution.saveToDB(conn);
+						System.out.println("Dodano rozwiązanie do bazy danych");
+					} catch (Exception e) {
+						System.out.println("Nie znaleziono rekordu o podanych id!");
+						continue;
+					}
 
 				}
 				if (answer.equals("view")) {
@@ -70,10 +73,13 @@ public class AssignExerciseApp {
 					}
 					System.out.println();
 					System.out.println("Wpisz id użytkownika, którego rozwiązania chcesz obejrzeć");
-					long userId = sc.nextLong();
 
-					Exercise.loadAllByUserId(conn, userId);
-					continue;
+					try {
+						long userId = sc.nextLong();
+						Exercise.loadAllByUserId(conn, userId);
+					} catch (Exception f) {
+						System.out.println("Nie znaleziono rekordu o podanym id!");
+					}
 				}
 
 				if (!"add".equals(answer) && (!"view".equals(answer)) && (!"quit".equals(answer))) {
@@ -82,7 +88,8 @@ public class AssignExerciseApp {
 					continue;
 				}
 
-			} while (!"quit".equals(answer)); {
+			} while (!"quit".equals(answer));
+			{
 
 				System.out.println("Koniec programu");
 				conn.close();
