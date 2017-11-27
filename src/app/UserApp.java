@@ -23,11 +23,12 @@ public class UserApp {
 			System.out.println();
 			Scanner sc = new Scanner(System.in);
 			String answer;
-			
-			System.out.println("Wybierz jedną z opcji: add, edit, delete, quit.");
 
-			while (sc.hasNext()) {
+			do {
+
+				System.out.println("Wybierz jedną z opcji: add, edit, delete, quit.");
 				answer = sc.next();
+
 				if (answer.equals("add")) {
 					System.out.println("Podaj nazwę użytkownika");
 					String username = sc.next();
@@ -42,7 +43,8 @@ public class UserApp {
 					System.out.println("Dodano użytkownika do bazy danych.");
 					continue;
 
-				} else if (answer.equals("edit")) {
+				}
+				if (answer.equals("edit")) {
 
 					System.out.println("Wpisz id użytkownika do edycji");
 					int id = sc.nextInt();
@@ -62,7 +64,8 @@ public class UserApp {
 					System.out.println("Edytowano użytkownika w bazie danych.");
 					continue;
 
-				} else if (answer.equals("delete")) {
+				}
+				if (answer.equals("delete")) {
 
 					System.out.println("Podaj id użytkownika do usunięcia");
 					int id = sc.nextInt();
@@ -77,20 +80,20 @@ public class UserApp {
 					}
 					continue;
 
-				} else if (answer.equals("quit")) {
-					System.out.println("Koniec programu");
-					conn.close();
-					break;
-
-				} else {
+				}
+				if (!"edit".equals(answer) && (!"add".equals(answer)) && (!"delete".equals(answer))
+						&& (!"quit".equals(answer))) {
 					System.out.println("Niepoprawne wprowadzenie! Spróbuj jeszcze raz!");
 					sc.nextLine();
+					continue;
 				}
+
+			} while (!"quit".equals(answer)); {
+				
+				System.out.println("Koniec programu");
+				conn.close();
 			}
 			sc.close();
-
-			// conn.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

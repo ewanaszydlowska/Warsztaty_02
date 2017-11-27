@@ -1,11 +1,10 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.jdbc.Connection;
 
 public class Exercise {
 
@@ -47,23 +46,24 @@ public class Exercise {
 	
 	public void saveToDB(Connection conn) throws SQLException {
 		if (this.id == 0) {
-			String sql = "INSERT INTO exercise(name, description) VALUES (?, ?);";
+			String sql = "INSERT INTO exercise(title, description) VALUES (?, ?);";
 			String[] generatedColumns = {"id"};
 			PreparedStatement ps = conn.prepareStatement(sql, generatedColumns);
 			ps.setString(1, this.name);
-			ps.setString(1, this.description);
+			ps.setString(2, this.description);
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
-			while(rs.next()) {
+			if(rs.next()) {
 				this.id = rs.getInt(1);
 			}
 			ps.close();
 			rs.close();
 		} else {
-			String sql = "UPDATE exercise SET name=?, description=?;";
+			String sql = "UPDATE exercise SET title=?, description=? WHERE id=?;";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, this.name);
 			ps.setString(2, this.description);
+			ps.setInt(3, this.id);
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -77,7 +77,7 @@ public class Exercise {
 		if (rs.next()) {
 			Exercise loadedEx = new Exercise();
 			loadedEx.id = rs.getInt("id");
-			loadedEx.name = rs.getString("name");
+			loadedEx.name = rs.getString("title");
 			loadedEx.description = rs.getString("description");
 			ps.close();
 			rs.close();
@@ -95,7 +95,7 @@ public class Exercise {
 		while(rs.next()) {
 			Exercise loadedEx = new Exercise();
 			loadedEx.id = rs.getInt("id");
-			loadedEx.name = rs.getString("name");
+			loadedEx.name = rs.getString("title");
 			loadedEx.description = rs.getString("description");
 			exercises.add(loadedEx);
 		}
