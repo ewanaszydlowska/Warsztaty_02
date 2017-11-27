@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Solution {
 	
@@ -189,6 +190,39 @@ public class Solution {
 		}
 	}
 	
+	public static List<Solution> loadArrayByExerciseId (Connection conn, int id) throws SQLException {
+		ArrayList<Solution> solutions = new ArrayList<>();
+		String sql = "SELECT * FROM solution WHERE exercise_id=? ORDER BY updated DESC;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			Solution loadedSolution = new Solution();
+			loadedSolution.id = rs.getInt("id");
+			loadedSolution.created = rs.getDate("created");
+			loadedSolution.updated = rs.getDate("updated");
+			loadedSolution.description = rs.getString("description");
+			loadedSolution.exerciseId = rs.getInt("exercise_id");
+			loadedSolution.usersId = rs.getLong("users_id");
+			solutions.add(loadedSolution);
+		}
+		ps.close();
+		rs.close();
+		
+		return solutions;
+	}
 	
+	public static boolean checkIfExists(Connection conn, int exId, long userId) throws SQLException {
+		String sql = "SELECT * FROM solution WHERE exercise_id=? AND users_id=? ORDER BY updated DESC;";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, exId);
+		ps.setLong(2, userId);
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 }
