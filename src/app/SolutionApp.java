@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import model.Exercise;
 import model.Solution;
+import model.User;
 
 public class SolutionApp {
 
@@ -30,7 +31,7 @@ public class SolutionApp {
 				if (answer.equals("add")) {
 
 					// lista zadan ktorych uzytkownik jeszcze nie wykonal
-					
+					User.loadNotDoneById(conn, userId);
 					
 					//edycja
 					System.out.println("Podaj id zadania, do którego chcesz dodać rozwiązanie");
